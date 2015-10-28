@@ -43,3 +43,19 @@ You can speed up processing by specifying less iterations and a larger shinkFact
 ```
   ./itkN3 -s 4 -i 50x25x25 data output
 ```
+
+Create static linked executable
+-------------------------------
+
+Compile a static version of the ITK library:
+```
+mkdir ~/InsightToolkit-4.8.1/bin
+cd ~/InsightToolkit-4.8.1/bin
+cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_EXE_LINKER_FLAGS="-static" -DCMAKE_FIND_LIBRARY_SUFFIXES=".a" ..
+cd ~/
+git clone https://github.com/HaukeBartsch/itkN3.git itkN3
+cd ~/itkN3
+cmake -DITK_DIR=/root/InsightToolkit-4.8.1/bin -DCMAKE_EXE_LINKER_FLAGS="-static" -DCMAKE_FIND_LIBRARY_SUFFIXES=".a" .
+file ./itkN3
+./itkN3: ELF 64-bit LSB  executable, x86-64, version 1 (GNU/Linux), statically linked, for GNU/Linux 2.6.24, BuildID[sha1]=c59064b228f72b7395060eb8b372b6dbade54980, not stripped
+```

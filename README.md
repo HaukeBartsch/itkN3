@@ -1,7 +1,12 @@
 # itkN3
 Using ITK's N3 implementation for reading DICOM images, applying non-uniform intensity normalization and writing out a DICOM dataset again
 
-This program requires the ITK toolkit (http://www.itk.org/).
+This program requires the ITK toolkit (http://www.itk.org/) to build. The binary files are statically linked against itk and therefore should not require a separate ITK install on your machine.
+
+  [Linux binary](binary/Linux/itkN3)
+  [MacOS binary](binary/MacOS/itkN3)
+
+
 
 How to compile
 --------------
@@ -47,7 +52,7 @@ You can speed up processing by specifying less iterations and a larger shinkFact
 Create static linked executable
 -------------------------------
 
-Compile a static version of the ITK library:
+Compile a static version of the ITK library on Linux:
 ```
 mkdir ~/InsightToolkit-4.8.1/bin
 cd ~/InsightToolkit-4.8.1/bin
@@ -59,3 +64,5 @@ cmake -DITK_DIR=/root/InsightToolkit-4.8.1/bin -DCMAKE_EXE_LINKER_FLAGS="-static
 file ./itkN3
 ./itkN3: ELF 64-bit LSB  executable, x86-64, version 1 (GNU/Linux), statically linked, for GNU/Linux 2.6.24, BuildID[sha1]=c59064b228f72b7395060eb8b372b6dbade54980, not stripped
 ```
+
+On MacOS compile ITK without dynamically linked libraries (edit the CMakeFile after the cmake step). No options are required in that case to produce a static binary which includes the itk libraries.

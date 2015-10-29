@@ -8,6 +8,7 @@ This program requires the ITK toolkit (http://www.itk.org/) to build. The binary
     wget https://github.com/HaukeBartsch/itkN3/raw/master/binary/Linux64/itkN3
 
  *  Download binary for MacOS (10.11 with ITK 4.8.1):
+
     wget https://github.com/HaukeBartsch/itkN3/raw/master/binary/MacOS/itkN3
   
 

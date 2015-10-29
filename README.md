@@ -3,11 +3,12 @@ Using ITK's N3 implementation for reading DICOM images, applying non-uniform int
 
 This program requires the ITK toolkit (http://www.itk.org/) to build. The binary files are statically linked against itk and therefore should not require a separate ITK install on your machine.
 
-   Download Linux 64bit version (Ubuntu 64bit with ITK 4.8.1):
-   wget https://github.com/HaukeBartsch/itkN3/raw/master/binary/Linux64/itkN3
+ *  Download Linux 64bit version (Ubuntu 64bit with ITK 4.8.1):
+ 
+    wget https://github.com/HaukeBartsch/itkN3/raw/master/binary/Linux64/itkN3
 
-   Download binary for MacOS (10.11 with ITK 4.8.1):
-   wget https://github.com/HaukeBartsch/itkN3/raw/master/binary/MacOS/itkN3
+ *  Download binary for MacOS (10.11 with ITK 4.8.1):
+    wget https://github.com/HaukeBartsch/itkN3/raw/master/binary/MacOS/itkN3
   
 
 ```

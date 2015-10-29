@@ -3,19 +3,12 @@ Using ITK's N3 implementation for reading DICOM images, applying non-uniform int
 
 This program requires the ITK toolkit (http://www.itk.org/) to build. The binary files are statically linked against itk and therefore should not require a separate ITK install on your machine.
 
-  [Linux binary](binary/Linux/itkN3)
-  [MacOS binary](binary/MacOS/itkN3)
+  [Download Linux-64bit binary](binary/Linux/itkN3)
 
-
-
-How to compile
---------------
+  [Download MacOS binary](binary/MacOS/itkN3)
+  
 
 ```
-cmake .
-./itkN3
-Option indir is required but not defined
-Option outdir is required but not defined
  Command tags:
     [ -s [ shrinkFactor ] ]
          = The shrink factor will make the problem easier to handle (sub-sample data). The larger the value the faster.
@@ -48,11 +41,10 @@ You can speed up processing by specifying less iterations and a larger shinkFact
 ```
   ./itkN3 -s 4 -i 50x25x25 data output
 ```
+How to compile
+--------------
 
-Create static linked executable
--------------------------------
-
-Compile a static version of the ITK library on Linux:
+Compile a static version of the ITK library (on Linux):
 ```
 mkdir ~/InsightToolkit-4.8.1/bin
 cd ~/InsightToolkit-4.8.1/bin

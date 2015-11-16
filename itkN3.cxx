@@ -116,6 +116,9 @@ int main( int argc, char* argv[] ) {
   command.AddField("indir", "Directory with input DICOM image series.", MetaCommand::STRING, true);
   command.AddField("outdir", "Directory for output DICOM image series.", MetaCommand::STRING, true);  
 
+  command.SetOption("Mask", "m", false, "Provide a mask image as an additional input. If not supplied Otzu will be used to create a mask.");
+  command.AddOptionField("Mask", "mask", MetaCommand::STRING, false);
+
   command.SetOption("Write", "s", false, "The shrink factor will make the problem easier to handle (sub-sample data). The larger the value the faster.");
   command.AddOptionField("Write", "shrinkFactor", MetaCommand::INT, false, "3");
 
@@ -132,8 +135,6 @@ int main( int argc, char* argv[] ) {
   command.AddOptionField("SaveNifty", "niftyfilename", MetaCommand::STRING, true);
 
   command.SetOption("Verbose", "v", false, "Print more verbose output");
-
- // command.AddOptionField("SaveBiasfield", "SaveBiasField", MetaCommand::BOOL, false, "0"); 
 
 
   if ( !command.Parse(argc,argv) ) {
@@ -214,7 +215,16 @@ int main( int argc, char* argv[] ) {
       if( seriesIdentifierFlag ) { // If no optional series identifier
           seriesIdentifier = seriesName;
       } else {
+          // Todo: here we select only the first series. We should run
+          // N3 on all series.
+        
           seriesIdentifier = seriesUID.begin()->c_str();
+          
+          // Todo: if we have multiple phases they will all be in the same series. 
+          // It does not make sense to handle them here as one big volume, we should
+          // look for the slice locations (consecutive) identify the first volume
+          // and run N3 on that one. The resulting bias field should be applied to
+          // all phases of the series.
       }
       
       std::cout << std::endl << std::endl;
@@ -255,11 +265,12 @@ int main( int argc, char* argv[] ) {
       typedef itk::Image<unsigned char, Dimension> MaskImageType;
       MaskImageType::Pointer maskImage = ITK_NULLPTR;
 
-      // if we have a mask on the command line (will never happen)
-      if (0) {
+      // if we have a mask on the command line      
+      if (command.GetOptionWasSet("Mask")) {
+        std::string maskName    = command.GetValueAsString("Mask", "mask");
         typedef itk::ImageFileReader<MaskImageType> MaskReaderType;
         MaskReaderType::Pointer maskreader = MaskReaderType::New();
-        maskreader->SetFileName( argv[6] );
+        maskreader->SetFileName( maskName );
         try {
           maskreader->Update();
           maskImage = maskreader->GetOutput();
